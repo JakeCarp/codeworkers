@@ -1,14 +1,21 @@
 <template>
   <div class="post card elevation-3 p-3 m-3 row">
-    <div class="card-title border-bottom col-12 p-1">
+    <div class="card-title col-md-12 p-1">
       <div class="align-items-top row">
-        <img
-          class="image-fluid rounded-pill post-img col-2"
-          :src="post.creator.picture"
-        />
+        <span class="col-md-1 me-3 d-none d-md-flex">
+          <img class="image-fluid post-img" :src="post.creator.picture" />
+        </span>
         <div class="col">
-          <h3>{{ post.creator.name }}</h3>
-          <i v-if="post.creator.graduated" class="mid mdi-code-braces"></i>
+          <div class="row justify-content-between">
+            <p class="col-4">{{ post.creator.name }}</p>
+            <button
+              v-if="post.creatorId === account.id"
+              class="col-1 btn btn-outline-primary"
+            >
+              <i class="mdi mdi-dots-horizontal"></i>
+            </button>
+            <i v-if="post.creator.graduated" class="mid mdi-school"></i>
+          </div>
         </div>
       </div>
     </div>
@@ -50,12 +57,14 @@ export default {
     },
   },
   setup(props) {
+    const account = computed(() => AppState.account);
     return {
-      account: computed(() => AppState.account),
+      account,
+      liked: computed(() => props.post.likeIds.includes(account.id)),
       async likePost() {
         try {
+          //FIXME this implementation requires reload for revisualization. Need to figure out how to redraw just this post when it is liked.
           await postsService.likePost(props.post.id);
-          await postsService.getAll("");
         } catch (error) {
           logger.error(error);
           Pop.toast(error.message, "error");
@@ -68,7 +77,4 @@ export default {
 
 
 <style lang="scss" scoped>
-.postImg {
-  max-height: 75px;
-}
 </style>

@@ -6,10 +6,13 @@
 
 
 
-.post-thumbnail {
-  width: 100px;
-  height: 100px;
-
+.card-title {
+  height: 18vh;
+}
+.post-img {
+  height: 15vh;
+  width: 15vh;
+  border-radius: 50%;
 }
 
 #app {
