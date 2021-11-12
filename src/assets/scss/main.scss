@@ -4,6 +4,14 @@
 @import "./utilities.scss";
 @import "./loaders.scss";
 
+
+
+.post-thumbnail {
+  width: 100px;
+  height: 100px;
+
+}
+
 #app {
   display: flex;
   flex-direction: column;
