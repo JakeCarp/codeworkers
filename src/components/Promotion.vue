@@ -1,5 +1,5 @@
 <template>
-  <div class="post"></div>
+  <div class="promotion"></div>
 </template>
 
 
