@@ -3,12 +3,12 @@
     <div class="card-title border-bottom col-12 p-1">
       <div class="align-items-top row">
         <img
-          class="image-fluid rounded-pill col-2"
+          class="image-fluid rounded-pill post-img col-2"
           :src="post.creator.picture"
         />
         <div class="col">
           <h3>{{ post.creator.name }}</h3>
-          <i class="mid mdi-school"></i>
+          <i v-if="post.creator.graduated" class="mid mdi-code-braces"></i>
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@
 
 
 <script>
-import { computed } from "@vue/reactivity";
+import { computed, reactive } from "@vue/reactivity";
 import { AppState } from "../AppState";
 import { postsService } from "../services/PostsService";
 import { logger } from "../utils/Logger";
@@ -52,10 +52,10 @@ export default {
   setup(props) {
     return {
       account: computed(() => AppState.account),
-
       async likePost() {
         try {
           await postsService.likePost(props.post.id);
+          await postsService.getAll("");
         } catch (error) {
           logger.error(error);
           Pop.toast(error.message, "error");
@@ -68,4 +68,7 @@ export default {
 
 
 <style lang="scss" scoped>
+.postImg {
+  max-height: 75px;
+}
 </style>

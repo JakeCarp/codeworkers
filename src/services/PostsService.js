@@ -11,6 +11,7 @@ class PostsService {
     async likePost(id) {
         const res = await api.post('api/posts/' + id + '/like')
         logger.log(res.data)
+        return res.data
     }
 }
 export const postsService = new PostsService()
