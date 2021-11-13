@@ -1,6 +1,16 @@
 <template>
-  <div class="thread">
+  <div class="thread row">
     <Post v-for="p in posts" :key="p.id" :post="p" />
+  </div>
+  <div class="row justify-content-between">
+    <button
+      v-if="prevPage !== null"
+      class="btn btn-primary"
+      @click="getOlderPosts"
+    >
+      Previous Page
+    </button>
+    <button v-else class="btn btn-primary" @click="getNewerPosts"></button>
   </div>
 </template>
 
@@ -25,7 +35,25 @@ export default {
       }
     });
     return {
+      nextPage: computed(() => AppState.nextPage),
+      prevPage: computed(() => AppState.prevPage),
       posts: computed(() => AppState.posts),
+      async getOlderPosts() {
+        try {
+          await postsService.getAll(prevPage);
+        } catch (error) {
+          logger.log(error);
+          Pop.toast(error.message, "error");
+        }
+      },
+      async getNewerPosts() {
+        try {
+          await postsService.getAll(nextPage);
+        } catch (error) {
+          logger.log(error);
+          Pop.toast(error.message, "error");
+        }
+      },
     };
   },
 };
