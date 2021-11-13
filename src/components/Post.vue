@@ -67,7 +67,11 @@ export default {
           await postsService.likePost(props.post.id);
         } catch (error) {
           logger.error(error);
-          Pop.toast(error.message, "error");
+          if (!account.id) {
+            Pop.toast("Please Login to like a post", "error");
+          } else {
+            Pop.toast(error.message, "error");
+          }
         }
       },
     };
