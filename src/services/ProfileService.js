@@ -16,10 +16,5 @@ class ProfileService {
         AppState.profile = res.data
     }
     
-    async getPostsByProfile(id) {
-        const res = await api.get('api/profiles/' + id + '/posts')
-        logger.log(res.data)
-        AppState.posts =res.data
-    }
 }
 export const profileService = new ProfileService()

@@ -41,6 +41,7 @@ export default {
     return {
       promotion: computed(() => AppState.promotion),
       account: computed(() => AppState.account),
+      posts: computed(() => AppState.posts),
     };
   },
 };

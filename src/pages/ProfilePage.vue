@@ -13,6 +13,8 @@ import { AppState } from "../AppState";
 import { useRoute } from "vue-router";
 import { profileService } from "../services/ProfileService";
 import { postsService } from "../services/PostsService";
+import { logger } from "../utils/Logger";
+import Pop from "../utils/Pop";
 export default {
   name: "Account",
   setup() {
@@ -20,12 +22,14 @@ export default {
     onMounted(async () => {
       try {
         await postsService.getAll("?creatorId=" + route.params.id);
-      } catch (error) {}
+      } catch (error) {
+        logger.error(error);
+        Pop.toast(error.message, "error");
+      }
     });
     watchEffect(async () => {
       if (route.name == "Profile") {
         await profileService.getProfilebyId(route.params.id);
-        await profileService.getPostsByProfile(route.params.id);
       }
     });
     return {

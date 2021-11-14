@@ -16,7 +16,9 @@
               v-if="post.creatorId === account.id"
               class="col-1 btn btn-outline-primary"
             >
-              <i class="mdi mdi-dots-horizontal"></i>
+              <!-- TODO turn this delete button into a context menu that includes edit -->
+
+              <i class="mdi mdi-trash-can" @click="removePost"></i>
             </button>
             <i v-if="post.creator.graduated" class="mid mdi-school"></i>
           </div>
@@ -83,6 +85,14 @@ export default {
           } else {
             Pop.toast(error.message, "error");
           }
+        }
+      },
+      async removePost() {
+        try {
+          await postsService.removePost(props.post.id);
+        } catch (error) {
+          logger.error(error);
+          Pop.toast(error.message, "error");
         }
       },
     };

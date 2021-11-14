@@ -20,7 +20,7 @@
         name="post-body"
         id="post-body"
       ></textarea>
-      <button @click="createPost"></button>
+      <button @click="createPost">Submit</button>
     </form>
   </div>
 </template>
@@ -29,6 +29,9 @@
 <script>
 import { computed, reactive } from "@vue/reactivity";
 import { AppState } from "../AppState";
+import { postsService } from "../services/PostsService";
+import { logger } from "../utils/Logger";
+import Pop from "../utils/Pop";
 export default {
   setup() {
     const state = reactive({
@@ -37,6 +40,14 @@ export default {
     return {
       state,
       account: computed(() => AppState.account),
+      async createPost() {
+        try {
+          await postsService.createPost(state.editable);
+        } catch (error) {
+          logger.error(error);
+          Pop.toast(error.message, error);
+        }
+      },
     };
   },
 };

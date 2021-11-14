@@ -6,6 +6,7 @@
 
 s
 <script>
+import { computed } from "@vue/reactivity";
 import Post from "./Post.vue";
 export default {
   components: { Post },
@@ -16,7 +17,9 @@ export default {
     },
   },
   setup(props) {
-    return {};
+    return {
+      posts: computed(() => props.posts),
+    };
   },
 };
 </script>
