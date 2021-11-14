@@ -1,9 +1,9 @@
 <template>
   <div class="container-fluid">
-    <div class="row justify-content-center">
+    <div class="row justify-content-around">
       <div class="col-md-6 p-3">
         <createPost v-if="account.id" />
-        <thread />
+        <thread :posts="posts" />
       </div>
       <div class="col-md-3 py-3">
         <div class="row">
@@ -23,12 +23,15 @@ import CreatePost from "../components/CreatePost.vue";
 import { promotionsService } from "../services/PromotionsService";
 import Promotion from "../components/Promotion.vue";
 import Pop from "../utils/Pop";
+import { logger } from "../utils/Logger";
+import { postsService } from "../services/PostsService";
 export default {
   components: { Thread, CreatePost, Promotion },
   name: "Home",
   setup() {
     onMounted(async () => {
       try {
+        await postsService.getAll("");
         await promotionsService.getPromotions();
       } catch (error) {
         logger.error(error);

@@ -3,7 +3,11 @@
     <div class="card-title col-md-12 p-1">
       <div class="align-items-top row">
         <span class="col-md-1 me-3 d-none d-md-flex">
-          <img class="image-fluid post-img" :src="post.creator.picture" />
+          <img
+            @click="routeTo"
+            class="image-fluid post-img selectable"
+            :src="post.creator.picture"
+          />
         </span>
         <div class="col">
           <div class="row justify-content-between">
@@ -49,6 +53,7 @@ import { AppState } from "../AppState";
 import { postsService } from "../services/PostsService";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
+import { useRouter } from "vue-router";
 export default {
   props: {
     post: {
@@ -57,13 +62,19 @@ export default {
     },
   },
   setup(props) {
+    const router = useRouter();
     const account = computed(() => AppState.account);
     return {
       account,
       liked: computed(() => props.post.likeIds.includes(account.id)),
+      async routeTo() {
+        router.push({
+          name: "Profile",
+          params: { id: props.post.creatorId },
+        });
+      },
       async likePost() {
         try {
-          //FIXME this implementation requires reload for revisualization. Need to figure out how to redraw just this post when it is liked.
           await postsService.likePost(props.post.id);
         } catch (error) {
           logger.error(error);

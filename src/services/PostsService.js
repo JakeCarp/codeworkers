@@ -5,13 +5,19 @@ import { api } from "./AxiosService"
 
 class PostsService {
     async getAll(query) {
+        logger.log(query)
         const res = await api.get('/api/posts' + query)
         logger.log(res.data)
         AppState.posts = res.data.posts
-        let newer = res.data.newer.split('?')
-        AppState.nextPage = newer[1]
-        let older = res.data.older.split('?')
-        AppState.prevPage = older[1]
+        if (res.data.newer) { 
+            let newer = res.data.newer.split('?')
+            AppState.nextPage = newer[1]
+        }
+        if (res.data.older) {
+            let  older = res.data.older.split('?')
+            AppState.prevPage = older[1]
+        }
+
     }
     async likePost(id) {
         const index = AppState.posts.findIndex(p => p.id === id)
