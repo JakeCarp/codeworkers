@@ -5,8 +5,8 @@ import { api } from "./AxiosService"
 class PromotionsService {
     async getPromotions() {
         const res = await api.get('api/ads')
-        logger.log(res.data[0])
-        AppState.promotions = res.data[0]
+        logger.log(res.data)
+        AppState.promotions = res.data
  }
 }
 

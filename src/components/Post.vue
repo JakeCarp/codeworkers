@@ -2,13 +2,13 @@
   <div class="post card elevation-3 p-3 m-3 row">
     <div class="card-title col-md-12 p-1">
       <div class="align-items-top row">
-        <span class="col-md-1 me-3 d-none d-md-flex">
+        <div class="col-md-3">
           <img
             @click="routeTo"
-            class="image-fluid post-img selectable"
+            class="img-fluid post-img selectable"
             :src="post.creator.picture"
           />
-        </span>
+        </div>
         <div class="col">
           <div class="row justify-content-between">
             <p class="col-4">{{ post.creator.name }}</p>

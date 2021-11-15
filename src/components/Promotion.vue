@@ -1,10 +1,12 @@
 <template>
   <div class="promotion">
-    <img
-      class="image-fluid"
-      :src="promotion.tall"
-      :aria-describedby="promotion.title"
-    />
+    <a href="https://boisecodeworks.com">
+      <img
+        class="img-fluid"
+        :src="promotion.imgUrl"
+        :aria-describedby="promotion.title"
+      />
+    </a>
   </div>
 </template>
 
