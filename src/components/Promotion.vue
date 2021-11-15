@@ -3,7 +3,7 @@
     <a href="https://boisecodeworks.com">
       <img
         class="img-fluid"
-        :src="promotion.imgUrl"
+        :src="promotion.tall"
         :aria-describedby="promotion.title"
       />
     </a>

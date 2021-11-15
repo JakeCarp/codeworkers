@@ -1,26 +1,30 @@
 <template>
-  <div class="post card elevation-3 p-3 m-3 row">
-    <div class="card-title col-md-12 p-1">
+  <div class="post card elevation-3 row my-3 p-0">
+    <div class="card-title col-md-12">
       <div class="align-items-top row">
         <div class="col-md-3">
-          <img
-            @click="routeTo"
-            class="img-fluid post-img selectable"
-            :src="post.creator.picture"
-          />
+          <div class="div p-2">
+            <img
+              @click="routeTo"
+              class="img-fluid post-img selectable"
+              :src="post.creator.picture"
+            />
+          </div>
         </div>
         <div class="col">
           <div class="row justify-content-between">
-            <p class="col-4">{{ post.creator.name }}</p>
-            <button
-              v-if="post.creatorId === account.id"
-              class="col-1 btn btn-outline-primary"
-            >
-              <!-- TODO turn this delete button into a context menu that includes edit -->
+            <div class="p-3">
+              <p class="col-4">{{ post.creator.name }}</p>
+              <button
+                v-if="post.creatorId === account.id"
+                class="col-1 btn btn-outline-primary"
+              >
+                <!-- TODO turn this delete button into a context menu that includes edit -->
 
-              <i class="mdi mdi-trash-can" @click="removePost"></i>
-            </button>
-            <i v-if="post.creator.graduated" class="mid mdi-school"></i>
+                <i class="mdi mdi-trash-can" @click="removePost"></i>
+              </button>
+              <i v-if="post.creator.graduated" class="mdi mdi-school"></i>
+            </div>
           </div>
         </div>
       </div>
@@ -75,6 +79,7 @@ export default {
           params: { id: props.post.creatorId },
         });
       },
+      // TODO refactor the Hell out of this, its slow af
       async likePost() {
         try {
           await postsService.likePost(props.post.id);

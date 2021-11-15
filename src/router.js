@@ -23,7 +23,7 @@ const routes = [
     beforeEnter: authGuard
   },
   {
-    path: '/searchResults',
+    path: '/searchResults/:text',
     name: 'SearchResults',
     component: loadPage('SearchResults')
   }

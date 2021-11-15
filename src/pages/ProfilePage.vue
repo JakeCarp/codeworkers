@@ -1,9 +1,7 @@
 <template>
-  <div class="about text-center">
-    <h1>Welcome {{ profile.name }}</h1>
-    <img class="rounded" :src="profile.picture" alt="" />
-    <p>{{ profile.email }}</p>
-    <thread :posts="posts" />
+  <div class="profile container-fluid">
+    <profile :profile="profile" />
+    <thread class="col" :posts="posts" />
   </div>
 </template>
 
@@ -15,12 +13,16 @@ import { profileService } from "../services/ProfileService";
 import { postsService } from "../services/PostsService";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
+import Profile from "../components/Profile.vue";
+import { promotionsService } from "../services/PromotionsService";
 export default {
+  components: { Profile },
   name: "Account",
   setup() {
     const route = useRoute();
     onMounted(async () => {
       try {
+        await promotionsService.getPromotions();
         await postsService.getAll("?creatorId=" + route.params.id);
       } catch (error) {
         logger.error(error);

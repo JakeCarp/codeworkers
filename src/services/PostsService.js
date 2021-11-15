@@ -8,14 +8,8 @@ class PostsService {
         const res = await api.get('/api/posts' + query)
         logger.log(res.data)
         AppState.posts = res.data.posts
-        if (res.data.newer) { 
-            let newer = res.data.newer.split('?')
-            AppState.nextPage = newer[1]
-        }
-        if (res.data.older) {
-            let  older = res.data.older.split('?')
-            AppState.prevPage = older[1]
-        }
+        AppState.newer = res.data.newer
+        AppState.older = res.data.older
 
     }
     async createPost(postData) {

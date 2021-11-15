@@ -8,6 +8,6 @@ export const AppState = reactive({
   profileList: [],
   posts: [],
   promotions: [],
-  nextPage: '',
-  prevPage: ''
+  newer: '',
+  older: ''
 })

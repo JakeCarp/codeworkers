@@ -1,6 +1,6 @@
 <template>
   <div class="createPost">
-    <form @submit.prevent="createPost" class="card elevation-3 p-3 m-3 row">
+    <form @submit.prevent="createPost" class="card elevation-3 my-3 row p-0">
       <div class="card-title col-md-12 p-1">
         <div class="align-items-top row">
           <span class="col-md-3">
@@ -21,7 +21,7 @@
         id="post-body"
         placeholder="...what's on your mind?"
       ></textarea>
-      <button @click="createPost">Submit</button>
+      <button type="submit">Submit</button>
     </form>
   </div>
 </template>
@@ -44,6 +44,7 @@ export default {
       async createPost() {
         try {
           await postsService.createPost(state.editable);
+          state.editable = "";
         } catch (error) {
           logger.error(error);
           Pop.toast(error.message, error);

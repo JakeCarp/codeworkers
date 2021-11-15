@@ -19,10 +19,11 @@
 
 <script>
 import { ref } from "@vue/reactivity";
-import { useRouter } from "vue-router";
 import { postsService } from "../services/PostsService";
 import { profileService } from "../services/ProfileService";
 import Pop from "../utils/Pop";
+import { useRouter } from "vue-router";
+
 export default {
   setup() {
     const searchText = ref("");
@@ -31,10 +32,13 @@ export default {
       searchText,
       async search() {
         try {
-          await postsService.getAll("?query=" + searchText);
-          await profileService.getAllProfiles("?query=" + searchText);
+          await postsService.getAll("?query=" + searchText.value);
+          await profileService.getAllProfiles("?query=" + searchText.value);
           router.push({
             name: "SearchResults",
+            params: {
+              text: searchText.value,
+            },
           });
         } catch (error) {
           logger.error(error);
