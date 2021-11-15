@@ -15,6 +15,11 @@ class ProfileService {
         logger.log(res.data)
         AppState.profile = res.data
     }
+    async updateProfile(profileData) {
+        const res = await api.put('account', profileData)
+        logger.log(res.data)
+        AppState.profile = res.data
+    }
     
 }
 export const profileService = new ProfileService()
