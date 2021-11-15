@@ -12,6 +12,14 @@ class PostsService {
         AppState.older = res.data.older
 
     }
+    async getPostsByAge(query) {
+        const res = await api.get(query)
+        logger.log(res.data)
+        AppState.posts = res.data.posts
+        AppState.newer = res.data.newer
+        AppState.older = res.data.older
+        
+    }
     async createPost(postData) {
         const res = await api.post('api/posts', postData)
         logger.log(res.data)

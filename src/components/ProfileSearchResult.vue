@@ -1,6 +1,6 @@
 <template>
   <div class="searchProfile">
-    <div class="card elevation-3 col">
+    <div @click="routeTo" class="selectable card elevation-3 col">
       <div class="row">
         <div class="col-12 d-flex">
           <img
@@ -18,6 +18,7 @@
 
 
 <script>
+import { useRouter } from "vue-router";
 export default {
   props: {
     profile: {
@@ -25,8 +26,16 @@ export default {
       required: true,
     },
   },
-  setup() {
-    return {};
+  setup(props) {
+    const router = useRouter();
+    return {
+      async routeTo() {
+        router.push({
+          name: "Profile",
+          params: { id: props.profile._id },
+        });
+      },
+    };
   },
 };
 </script>

@@ -14,13 +14,15 @@
         <div class="col">
           <div class="row justify-content-between">
             <div class="p-3">
-              <p class="col-4">{{ post.creator.name }}</p>
+              <div class="col-4">
+                <p>{{ post.creator.name }}</p>
+                <!-- TODO Still need to render how long ago this was posted -->
+              </div>
+              <!-- TODO turn this delete button into a context menu that includes edit -->
               <button
                 v-if="post.creatorId === account.id"
-                class="col-1 btn btn-outline-primary"
+                class="btn btn-outline-danger"
               >
-                <!-- TODO turn this delete button into a context menu that includes edit -->
-
                 <i class="mdi mdi-trash-can" @click="removePost"></i>
               </button>
               <i v-if="post.creator.graduated" class="mdi mdi-school"></i>
@@ -92,9 +94,12 @@ export default {
           }
         }
       },
+      // FIXME Bug here prevents makeing a post after already submitting one
       async removePost() {
         try {
-          await postsService.removePost(props.post.id);
+          if (await Pop.confirm("Delete This Post?")) {
+            await postsService.removePost(props.post.id);
+          }
         } catch (error) {
           logger.error(error);
           Pop.toast(error.message, "error");

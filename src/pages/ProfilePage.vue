@@ -1,7 +1,23 @@
 <template>
   <div class="profile container-fluid">
-    <profile :profile="profile" />
-    <thread class="col" :posts="posts" />
+    <div class="row">
+      <profile :profile="profile" />
+    </div>
+    <div class="row justify-content-around">
+      <div class="col-md-6">
+        <thread :posts="posts" />
+      </div>
+      <div class="col-md-3">
+        <div class="row justify-content-between">
+          <promotion
+            v-for="p in promotions"
+            :key="p.title"
+            class="col-12 my-5"
+            :promotion="p"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -39,6 +55,7 @@ export default {
       account: computed(() => AppState.account),
       profile: computed(() => AppState.profile),
       posts: computed(() => AppState.posts),
+      promotions: computed(() => AppState.promotions),
     };
   },
 };

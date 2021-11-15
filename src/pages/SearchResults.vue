@@ -1,9 +1,19 @@
 <template>
   <div class="search-results container-fluid">
     <div class="row justify-content-around">
-      <div class="col-md-6">
-        <profile-search-result v-for="p in profiles" :key="p.id" :profile="p" />
-        <thread :posts="posts" />
+      <div class="col-md-6 my-3">
+        <div class="py-3">
+          <h2>Profiles:</h2>
+          <profile-search-result
+            v-for="p in profiles"
+            :key="p.id"
+            :profile="p"
+          />
+        </div>
+        <div class="py-3">
+          <h2>Posts:</h2>
+          <thread :posts="posts" />
+        </div>
       </div>
       <div class="col-md-3">
         <div class="row justify-content-between">
